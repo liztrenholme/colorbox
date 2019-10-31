@@ -17,9 +17,7 @@ class Colorbox extends Component {
       this.setState({colorList: list});
     }
     removeItem = (item) => () => {
-      console.log(item);
       let list = this.state.colorList;
-      console.log(list.indexOf(item));
       list.splice(list.indexOf(item), 1);
       this.setState({colorList: list});
     }
@@ -42,7 +40,7 @@ class Colorbox extends Component {
               </div>);
             }) : null}
           </div>
-          <div className='chosenBox'>
+          <div className='instructions'>
                 Drag chosen color to remove item from list.
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './display.css';
+import PropTypes from 'prop-types';
 
 class Display extends Component {
     state = {
@@ -23,5 +24,9 @@ class Display extends Component {
     }
 }
 
+Display.propTypes = {
+  color: PropTypes.string,
+  saveColor: PropTypes.func
+};
 
 export default Display;

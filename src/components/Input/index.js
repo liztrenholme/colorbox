@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './input.css';
+import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
@@ -12,5 +13,10 @@ class Input extends Component {
   }
 }
 
+Input.propTypes = {
+  color: PropTypes.string,
+  handleColorChange: PropTypes.func
+};
+  
 
 export default Input;

@@ -6,15 +6,23 @@
 }
 
 .chosenBox {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    width: 70%;
+    height: 15em;
+    overflow: scroll;
+    white-space: pre;
+}
+.colorItem {
+    display: flex;
+    flex-direction: row;
+    margin: .5em;
+}
+.instructions {
     display: flex;
     width: 70%;
     height: 15em;
     overflow: scroll;
     white-space: pre;
     flex-direction: row;
-}
-.colorItem {
-    display: flex;
-    flex-direction: row;
-    margin: .5em;
 }
