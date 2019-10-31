@@ -4,3 +4,17 @@
     align-items: center;
     margin: 2em;
 }
+
+.chosenBox {
+    display: flex;
+    width: 70%;
+    height: 15em;
+    overflow: scroll;
+    white-space: pre;
+    flex-direction: row;
+}
+.colorItem {
+    display: flex;
+    flex-direction: row;
+    margin: .5em;
+}

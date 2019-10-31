@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Colorbox from './components/colorbox/index'
+import Colorbox from './components/colorbox/index';
 
 function App() {
   return (

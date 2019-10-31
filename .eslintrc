@@ -25,7 +25,7 @@
         "react"
     ],
     "rules": {
-        "semi": ["error", "never"],
+        "semi": ["error", "always"],
         "quotes": ["error", "single"],
         "no-console": ["error", { "allow": ["warn"] }],
         "indent": ["error", 2]
