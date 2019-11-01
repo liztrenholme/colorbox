@@ -31,17 +31,16 @@ class Colorbox extends Component {
           <Display color={color} saveColor={this.saveColor} />
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {
-              return(<div className='colorItem' key={i}>
-                <div style={{width: '1em', height: '1em', backgroundColor: i}} 
-                  draggable onDrag={this.removeItem(i)} />
+              return(<div className='colorItem' key={i}
+                draggable onDrag={this.removeItem(i)}
+                onDoubleClick={this.removeItem(i)}>
+                <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
                 <span>{i}</span>
-                {/* <span onClick={this.removeItem(i)} 
-                  value={i} style={{color: 'gray', marginLeft: '.3em'}}>x</span> */}
               </div>);
             }) : null}
           </div>
           <div className='instructions'>
-                Drag chosen color to remove item from list.
+                Drag or double-tap to remove an item from the list.
           </div>
         </div>
       );
