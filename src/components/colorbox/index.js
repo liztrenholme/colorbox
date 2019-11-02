@@ -27,7 +27,6 @@ class Colorbox extends Component {
     }
     render() {
       const { colorList, color, contrast } = this.state;
-      console.log(contrast);
       return (
         <div className="main">
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>

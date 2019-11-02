@@ -7,10 +7,10 @@ export const getContrastColor = (color) => {
     contrast = `#${contrast.join('')}`;
   }
   else if (color.startsWith('RGB') || color.startsWith('rgb')) {
-    console.log('rgb!');
+    // console.log('rgb!');
   }
   else {
-    console.log('nope');
+    // console.log('nope');
   }
   return contrast;
 };
