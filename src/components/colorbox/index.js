@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
+import { getContrastColor } from '../modules/index.js';
 
 class Colorbox extends Component {
     state = {
@@ -11,9 +12,8 @@ class Colorbox extends Component {
     }
     handleColorChange = (e) => {
       let { contrast } = this.state;
-      
-      this.setState({ color: e.target.value });
-
+      contrast = getContrastColor(e.target.value);
+      this.setState({ color: e.target.value, contrast });
     }
     saveColor = () => {
       let list = this.state.colorList;
@@ -26,10 +26,11 @@ class Colorbox extends Component {
       this.setState({colorList: list});
     }
     render() {
-      const { colorList, color } = this.state;
+      const { colorList, color, contrast } = this.state;
+      console.log(contrast);
       return (
         <div className="main">
-          <h1 className='header' style={{color: '#808080'}}>Colorbox</h1>
+          <h1 className='header' style={{color: contrast}}>Colorbox</h1>
           <Input color={color}
             handleColorChange={this.handleColorChange}
           />
