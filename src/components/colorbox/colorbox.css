@@ -20,9 +20,15 @@
 }
 .instructions {
     display: flex;
-    width: 70%;
+    justify-content: center;
+    /* width: 70%; */
     height: 15em;
     overflow: scroll;
-    white-space: pre;
+    /* white-space: pre; */
     flex-direction: row;
+}
+.header {
+    font-family: 'Monoton', cursive;
+    font-size: 3em;
+    /* color: #b362a1; */
 }

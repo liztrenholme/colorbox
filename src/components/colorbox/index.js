@@ -6,10 +6,14 @@ import Input from '../Input/index';
 class Colorbox extends Component {
     state = {
       color: '#fff',
+      contrast: '#000',
       colorList: []
     }
     handleColorChange = (e) => {
+      let { contrast } = this.state;
+      
       this.setState({ color: e.target.value });
+
     }
     saveColor = () => {
       let list = this.state.colorList;
@@ -25,6 +29,7 @@ class Colorbox extends Component {
       const { colorList, color } = this.state;
       return (
         <div className="main">
+          <h1 className='header' style={{color: '#808080'}}>Colorbox</h1>
           <Input color={color}
             handleColorChange={this.handleColorChange}
           />
