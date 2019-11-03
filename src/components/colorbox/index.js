@@ -45,7 +45,9 @@ class Colorbox extends Component {
             }) : null}
           </div>
           <div className='instructions'>
-                Drag or double-tap to remove an item from the list.
+                Display the color associated with the hex code, rgb value, or CSS color name. 
+                Drag or double-tap to remove an item from the list.  Try: rgb(180, 80, 180), 
+                #4ba4ba or salmon.
           </div>
         </div>
       );
