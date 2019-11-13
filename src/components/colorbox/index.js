@@ -8,12 +8,18 @@ class Colorbox extends Component {
     state = {
       color: '#fff',
       contrast: '#000',
-      colorList: []
+      colorList: [],
+      mode: 'hex'
+    }
+    handleModeChange = (mode) => () => {
+      this.setState({ mode });
     }
     handleColorChange = (e) => {
       let { contrast } = this.state;
+      let value = e.target.value;
+      const validated = this.validateColorName(value, this.state.mode);
       contrast = getContrastColor(e.target.value);
-      this.setState({ color: e.target.value, contrast });
+      this.setState({ color: value, contrast });
     }
     saveColor = () => {
       let list = this.state.colorList;
@@ -25,15 +31,55 @@ class Colorbox extends Component {
       list.splice(list.indexOf(item), 1);
       this.setState({colorList: list});
     }
+    validateColorName = (name, mode) => {
+      console.log(name, mode);
+      let valid = name;
+      if (mode === 'hex') {
+        valid = `#${name}`;
+        valid.split('').filter(function(i, a, self) {
+          return self.indexOf(i) === '#';
+        })
+          .join('');
+      }
+      if (mode === 'rgb') {
+        return name
+          .split('')
+          .filter(function(item, a, self) {
+            return self.indexOf(item) === '#';
+          })
+          .join('');
+      }
+      console.log(name, valid);
+    }
     render() {
-      const { colorList, color, contrast } = this.state;
+      const { colorList, color, contrast, mode } = this.state;
       return (
         <div className="main">
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>
+          <div className='buttonBox'>
+            <button onClick={this.handleModeChange('hex')} 
+              className={mode === 'hex' ? 'active' : 'inactive'}>
+                  Hex
+            </button>
+            <button onClick={this.handleModeChange('rgb')} 
+              className={mode === 'rgb' ? 'active' : 'inactive'}>
+                  RGB
+            </button>
+            <button onClick={this.handleModeChange('colorName')} 
+              className={mode === 'colorName' ? 'active' : 'inactive'}>
+                  Color Name
+            </button>
+          </div>
           <Input color={color}
             handleColorChange={this.handleColorChange}
+            mode={mode}
           />
           <Display color={color} saveColor={this.saveColor} />
+          {contrast ?
+            <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
+              <div style={{backgroundColor: contrast, width: '20px', height: '20px', marginRight: '0.5em'}} />
+              <span style={{fontSize: '1.2em', fontWeight: 'bold'}}>Opposite: {contrast}</span>
+            </div> : null}
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {
               return(<div className='colorItem' key={i}

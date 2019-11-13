@@ -11,7 +11,6 @@
     width: 70%;
     height: 15em;
     overflow: scroll;
-    white-space: pre;
     margin: 1em 0;
 }
 .colorItem {
@@ -25,13 +24,30 @@
     width: 70%;
     height: 15em;
     overflow: scroll;
-    /* white-space: pre; */
     flex-direction: row;
 }
 .header {
     font-family: 'Monoton', cursive;
     font-size: 3em;
-    /* color: #b362a1; */
+}
+
+.active {
+    padding: .5em;
+    font-size: 1em;
+    background-color: #04b3d1;
+    color: #fff;
+    border-radius: 5px;
+    border: #04b3d1;
+    margin: .5em;
+}
+.inactive {
+    padding: .5em;
+    font-size: 1em;
+    background-color: #fff;
+    color: #04b3d1;
+    border-radius: 5px;
+    border: #fff;
+    margin: .5em;
 }
 
 @media (max-width: 967.98px) {

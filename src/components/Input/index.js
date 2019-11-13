@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
+    const { mode, color, handleColorChange } = this.props;
     return (
       <div className="input">
-        <input value={this.props.color} 
-          onChange={this.props.handleColorChange} />
+        <input value={color} 
+          onChange={handleColorChange} />
       </div>
     );
   }
@@ -15,7 +16,8 @@ class Input extends Component {
 
 Input.propTypes = {
   color: PropTypes.string,
-  handleColorChange: PropTypes.func
+  handleColorChange: PropTypes.func,
+  mode: PropTypes.string
 };
   
 
