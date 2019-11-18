@@ -65,6 +65,24 @@ export const swap = (i) => {
   case 'F':
     i = '0';
     break;
+  case 'a':
+    i = '5';
+    break;
+  case 'b':
+    i = '4';
+    break;
+  case 'c':
+    i = '3';
+    break;
+  case 'd':
+    i = '2';
+    break;
+  case 'e':
+    i = '1';
+    break;
+  case 'f':
+    i = '0';
+    break;
   default:
     i = '0';
   }

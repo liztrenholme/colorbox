@@ -18,6 +18,7 @@ class Colorbox extends Component {
       let { contrast } = this.state;
       let value = e.target.value;
       const validated = this.validateColorName(value, this.state.mode);
+      console.log(validated);
       contrast = getContrastColor(e.target.value);
       this.setState({ color: value, contrast });
     }
@@ -42,31 +43,34 @@ class Colorbox extends Component {
           .join('');
       }
       if (mode === 'rgb') {
-        return name
+        return valid
           .split('')
           .filter(function(item, a, self) {
             return self.indexOf(item) === '#';
           })
           .join('');
       }
-      console.log(name, valid);
+      // console.log(name, valid);
+      return valid;
     }
     render() {
       const { colorList, color, contrast, mode } = this.state;
+      console.log(mode);
       return (
         <div className="main">
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>
           <div className='buttonBox'>
             <button onClick={this.handleModeChange('hex')} 
-              className={mode === 'hex' || color.startsWith('#') ? 'active' : 'inactive'}>
+              className={mode === 'hex' || color.startsWith('#') ? 'active' : mode === '' ? 'inactive' : 'inactive'}>
                   Hex
             </button>
             <button onClick={this.handleModeChange('rgb')} 
-              className={mode === 'rgb' || color.startsWith('rgb(') || color.startsWith('RGB(') ? 'active' : 'inactive'}>
+              className={mode === 'rgb' || color.startsWith('rgb(') || color.startsWith('RGB(') ? 'active' : mode === '' ? 'inactive' : 'inactive'}>
                   RGB
             </button>
             <button onClick={this.handleModeChange('colorName')} 
-              className={mode === 'colorName' || (!color.startsWith('#') && !color.startsWith('rgb(') && !color.startsWith('RGB(')) ? 'active' : 'inactive'}>
+              className={mode === 'colorName' || (!color.startsWith('#') 
+              && !color.startsWith('rgb(') && !color.startsWith('RGB(')) ? 'active' : 'inactive'}>
                   Color Name
             </button>
           </div>
