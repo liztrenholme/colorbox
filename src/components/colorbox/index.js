@@ -34,7 +34,7 @@ class Colorbox extends Component {
     saveColor = () => {
       let list = this.state.colorList;
       const { color } = this.state;
-      if (color.length) {
+      if (color.length > 3) {
         list.push(color);
       }
       this.setState({colorList: list});
