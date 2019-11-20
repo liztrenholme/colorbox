@@ -12,19 +12,31 @@ class Colorbox extends Component {
       mode: ''
     }
     handleModeChange = (mode) => () => {
-      this.setState({ mode });
+      this.setState({ mode, color: '' });
     }
     handleColorChange = (e) => {
       let { contrast } = this.state;
       let value = e.target.value;
-      const validated = this.validateColorName(value, this.state.mode);
-      console.log(validated);
+      let mode = '';
+      // const validated = this.validateColorName(value, this.state.mode);
+      if (value.startsWith('#')) {
+        mode = 'hex';
+      }
+      if (value.startsWith('rgb')) {
+        mode = 'rgb';
+      }
+      if (!value.startsWith('#') && !value.startsWith('rgb')) {
+        mode = 'colorName';
+      }
       contrast = getContrastColor(e.target.value);
-      this.setState({ color: value, contrast });
+      this.setState({ color: value, contrast, mode });
     }
     saveColor = () => {
       let list = this.state.colorList;
-      list.push(this.state.color);
+      const { color } = this.state;
+      if (color.length) {
+        list.push(color);
+      }
       this.setState({colorList: list});
     }
     removeItem = (item) => () => {
@@ -33,7 +45,6 @@ class Colorbox extends Component {
       this.setState({colorList: list});
     }
     validateColorName = (name, mode) => {
-      console.log(name, mode);
       let valid = name;
       if (mode === 'hex') {
         valid = `#${name}`;
@@ -54,7 +65,6 @@ class Colorbox extends Component {
     }
     render() {
       const { colorList, color, contrast, mode } = this.state;
-      console.log(mode);
       return (
         <div className="main">
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>
