@@ -70,22 +70,15 @@ class Colorbox extends Component {
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>
           <div className='buttonBox'>
             <button onClick={this.handleModeChange('hex')} 
-              className={mode === 'hex' ? 'active' : 'inactive'}
-              // className={mode === 'hex' || color.startsWith('#') ? 'active' : mode === '' ? 'inactive' : 'inactive'}
-            >
+              className={mode === 'hex' ? 'active' : 'inactive'}>
                   Hex
             </button>
             <button onClick={this.handleModeChange('rgb')} 
-              className={mode === 'rgb' ? 'active' : 'inactive'}
-              // className={mode === 'rgb' || color.startsWith('rgb(') || color.startsWith('RGB(') ? 'active' : mode === '' ? 'inactive' : 'inactive'}
-            >
+              className={mode === 'rgb' ? 'active' : 'inactive'}>
                   RGB
             </button>
             <button onClick={this.handleModeChange('colorName')} 
-              className={mode === 'colorName' ? 'active' : 'inactive'}
-              // className={mode === 'colorName' || (!color.startsWith('#') 
-              // && !color.startsWith('rgb(') && !color.startsWith('RGB(')) ? 'active' : 'inactive'}
-            >
+              className={mode === 'colorName' ? 'active' : 'inactive'}>
                   Color Name
             </button>
           </div>
