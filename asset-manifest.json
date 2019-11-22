@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/colorbox/static/css/main.7cda6378.chunk.css",
-    "main.js": "/colorbox/static/js/main.635591b2.chunk.js",
-    "main.js.map": "/colorbox/static/js/main.635591b2.chunk.js.map",
+    "main.css": "/colorbox/static/css/main.c278b5b9.chunk.css",
+    "main.js": "/colorbox/static/js/main.c761f21e.chunk.js",
+    "main.js.map": "/colorbox/static/js/main.c761f21e.chunk.js.map",
     "runtime-main.js": "/colorbox/static/js/runtime-main.89254aa6.js",
     "runtime-main.js.map": "/colorbox/static/js/runtime-main.89254aa6.js.map",
     "static/js/2.bc1ddb32.chunk.js": "/colorbox/static/js/2.bc1ddb32.chunk.js",
     "static/js/2.bc1ddb32.chunk.js.map": "/colorbox/static/js/2.bc1ddb32.chunk.js.map",
     "index.html": "/colorbox/index.html",
-    "precache-manifest.5ea2a90c455091570a4495b0392157a9.js": "/colorbox/precache-manifest.5ea2a90c455091570a4495b0392157a9.js",
+    "precache-manifest.e575575c3491d174c27dd0962e462a58.js": "/colorbox/precache-manifest.e575575c3491d174c27dd0962e462a58.js",
     "service-worker.js": "/colorbox/service-worker.js",
-    "static/css/main.7cda6378.chunk.css.map": "/colorbox/static/css/main.7cda6378.chunk.css.map"
+    "static/css/main.c278b5b9.chunk.css.map": "/colorbox/static/css/main.c278b5b9.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.89254aa6.js",
     "static/js/2.bc1ddb32.chunk.js",
-    "static/css/main.7cda6378.chunk.css",
-    "static/js/main.635591b2.chunk.js"
+    "static/css/main.c278b5b9.chunk.css",
+    "static/js/main.c761f21e.chunk.js"
   ]
 }
