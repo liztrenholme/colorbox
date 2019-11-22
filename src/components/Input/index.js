@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Input extends Component {
   render() {
-    const { mode, color, handleColorChange } = this.props;
+    const { color, handleColorChange } = this.props;
     return (
       <div className="input">
         <input value={color} 

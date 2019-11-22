@@ -63,6 +63,10 @@ class Colorbox extends Component {
       }
       return valid;
     }
+    swapColors = () => {
+      const { contrast, color } = this.state;
+      this.setState({ contrast: color, color: contrast });
+    }
     render() {
       const { colorList, color, contrast, mode } = this.state;
       return (
@@ -91,6 +95,7 @@ class Colorbox extends Component {
             <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
               <div style={{backgroundColor: contrast, width: '20px', height: '20px', marginRight: '0.5em'}} />
               <span style={{fontSize: '1.2em', fontWeight: 'bold'}}>Opposite: {contrast}</span>
+              <button className='swapBtn' onClick={this.swapColors}>Swap</button>
             </div> : null}
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {

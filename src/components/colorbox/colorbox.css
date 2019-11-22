@@ -49,6 +49,15 @@
     border: #fff;
     margin: .5em;
 }
+.swapBtn {
+    /* padding: .5em; */
+    font-size: .8em;
+    background-color: #fff;
+    color: #04b3d1;
+    border-radius: 5px;
+    border: #fff;
+    margin: auto .5em;
+}
 
 @media (max-width: 967.98px) {
     .instructions { 
