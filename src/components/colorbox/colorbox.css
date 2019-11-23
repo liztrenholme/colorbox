@@ -13,6 +13,11 @@
     overflow: scroll;
     margin: 1em 0;
 }
+.btnBox {
+    display: flex;
+    flex-direction: row;
+    margin: 0 .5em 1em .5em;
+}
 .colorItem {
     display: flex;
     flex-direction: row;
@@ -50,7 +55,6 @@
     margin: .5em;
 }
 .swapBtn {
-    /* padding: .5em; */
     font-size: .8em;
     background-color: #fff;
     color: #04b3d1;

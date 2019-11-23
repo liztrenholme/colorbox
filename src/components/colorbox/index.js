@@ -12,7 +12,7 @@ class Colorbox extends Component {
       mode: ''
     }
     handleModeChange = (mode) => () => {
-      this.setState({ mode, color: '' });
+      this.setState({ mode, color: '', contrast: '' });
     }
     handleColorChange = (e) => {
       let { contrast } = this.state;
@@ -24,9 +24,11 @@ class Colorbox extends Component {
       }
       if (value.startsWith('rgb')) {
         mode = 'rgb';
+        contrast = '';
       }
       if (!value.startsWith('#') && !value.startsWith('rgb')) {
         mode = 'colorName';
+        contrast = '';
       }
       contrast = getContrastColor(e.target.value);
       this.setState({ color: value, contrast, mode });
@@ -90,13 +92,21 @@ class Colorbox extends Component {
             handleColorChange={this.handleColorChange}
             mode={mode}
           />
-          <Display color={color} saveColor={this.saveColor} />
+          <Display color={color} />
+          <div className='btnBox'>
+            <button className='swapBtn' 
+              onClick={this.saveColor}>
+                  Save
+            </button>
+            {contrast ? 
+              <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
+          </div>
           {contrast ?
             <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
               <div style={{backgroundColor: contrast, width: '20px', height: '20px', marginRight: '0.5em'}} />
               <span style={{fontSize: '1.2em', fontWeight: 'bold'}}>Opposite: {contrast}</span>
-              <button className='swapBtn' onClick={this.swapColors}>Swap</button>
             </div> : null}
+         
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {
               return(<div className='colorItem' key={i}
