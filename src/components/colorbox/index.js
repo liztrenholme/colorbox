@@ -94,10 +94,11 @@ class Colorbox extends Component {
           />
           <Display color={color} />
           <div className='btnBox'>
-            <button className='swapBtn' 
-              onClick={this.saveColor}>
+            {color ?
+              <button className='swapBtn' 
+                onClick={this.saveColor}>
                   Save
-            </button>
+              </button> : null}
             {contrast ? 
               <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
           </div>
