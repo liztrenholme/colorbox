@@ -69,6 +69,22 @@ class Colorbox extends Component {
       const { contrast, color } = this.state;
       this.setState({ contrast: color, color: contrast });
     }
+    convertToHex = () => {
+      const col = 'rgb(220,20,60)';
+      // console.log(col.split('(')[1]);
+      let temp = col.split('(')[1];
+      temp = temp.split(')')[0];
+      temp = temp.split(',');
+      temp = temp.map(i => Number(i));
+      // temp = temp.split(',').filter(i => i !== ')').join(',');
+      console.log(temp, 'hi');
+      const R = temp[0]/16;
+      console.log(R);
+
+    }
+    convertToRgb = () => {
+
+    }
     render() {
       const { colorList, color, contrast, mode } = this.state;
       return (
@@ -101,6 +117,10 @@ class Colorbox extends Component {
               </button> : null}
             {contrast ? 
               <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
+            {mode === 'hex' && color ? 
+              <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
+            {mode === 'rgb' && color ? 
+              <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
           </div>
           {contrast ?
             <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
