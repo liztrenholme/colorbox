@@ -70,7 +70,7 @@ class Colorbox extends Component {
       this.setState({ contrast: color, color: contrast });
     }
     convertToHex = () => {
-      const col = 'rgb(220,20,60)';
+      const col =  this.state.color; // 'rgb(220,20,60)';
       // console.log(col.split('(')[1]);
       let temp = col.split('(')[1];
       temp = temp.split(')')[0];
