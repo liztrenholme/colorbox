@@ -1,1 +1,1 @@
-Type in a hex code and see what color it is! Fun!
+Type in a hex code, rgb value, or css color name and see what looks like! Fun!

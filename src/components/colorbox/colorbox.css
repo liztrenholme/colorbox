@@ -4,7 +4,6 @@
     align-items: center;
     margin: 2em;
 }
-
 .chosenBox {
     display: grid;
     grid-template-columns: auto auto auto auto auto;
@@ -35,7 +34,6 @@
     font-family: 'Monoton', cursive;
     font-size: 3em;
 }
-
 .active {
     padding: .5em;
     font-size: 1em;
