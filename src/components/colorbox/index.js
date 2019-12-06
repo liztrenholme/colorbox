@@ -105,7 +105,7 @@ class Colorbox extends Component {
     }
     getSecondVal = (val) => {
       const temp = `${val}`.split('.')[1];
-      const final = Math.floor(Number(`.${temp}`) * 16);
+      const final = Math.floor(Number(`.${temp || 0}`) * 16);
       return final;
     }
 
