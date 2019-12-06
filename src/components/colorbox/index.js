@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
-import { getContrastColor } from '../modules/index.js';
+import { getContrastColor, hexCodes, colorNames } from '../modules/index.js';
 
 class Colorbox extends Component {
     state = {
@@ -70,23 +70,6 @@ class Colorbox extends Component {
       this.setState({ contrast: color, color: contrast });
     }
     convertToHex = () => {
-      const hexCodes = {
-        0: '0',
-        1: '1',
-        2: '2',
-        3: '3',
-        4: '4',
-        5: '5',
-        6: '6',
-        7: '7',
-        8: '8',
-        9: '9',
-        10: 'A',
-        11: 'B',
-        12: 'C',
-        13: 'D',
-        14: 'E'
-      };
       const col = this.state.color;
       let temp = col.split('(')[1];
       temp = temp.split(')')[0];
@@ -110,6 +93,9 @@ class Colorbox extends Component {
     }
 
     convertToRgb = () => {
+
+    }
+    convertToColorName = () => {
 
     }
     render() {
