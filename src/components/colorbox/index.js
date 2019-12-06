@@ -9,7 +9,7 @@ class Colorbox extends Component {
       color: '#fff',
       contrast: '#000',
       colorList: [],
-      mode: 'rgb'
+      mode: 'hex'
     }
     handleModeChange = (mode) => () => {
       this.setState({ mode, color: '', contrast: '' });
@@ -144,8 +144,8 @@ class Colorbox extends Component {
               </button> : null}
             {contrast ? 
               <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
-            {mode === 'hex' && color ? 
-              <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
+            {/* {mode === 'hex' && color ? 
+              <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null} */}
             {mode === 'rgb' && color ? 
               <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
           </div>
