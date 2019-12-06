@@ -9,7 +9,7 @@ class Colorbox extends Component {
       color: '#fff',
       contrast: '#000',
       colorList: [],
-      mode: ''
+      mode: 'rgb'
     }
     handleModeChange = (mode) => () => {
       this.setState({ mode, color: '', contrast: '' });
@@ -70,18 +70,45 @@ class Colorbox extends Component {
       this.setState({ contrast: color, color: contrast });
     }
     convertToHex = () => {
-      const col = this.state.color; // 'rgb(220,20,60)';
-      // console.log(col.split('(')[1]);
+      const hexCodes = {
+        0: '0',
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6',
+        7: '7',
+        8: '8',
+        9: '9',
+        10: 'A',
+        11: 'B',
+        12: 'C',
+        13: 'D',
+        14: 'E'
+      };
+      const col = this.state.color;
       let temp = col.split('(')[1];
       temp = temp.split(')')[0];
       temp = temp.split(',');
       temp = temp.map(i => Number(i));
-      // temp = temp.split(',').filter(i => i !== ')').join(',');
-      console.log(temp, 'hi');
       const R = temp[0]/16;
-      console.log(R);
-
+      const G = temp[1]/16;
+      const B = temp[2]/16;
+      const R1 = hexCodes[Math.floor(R)];
+      const G1 = hexCodes[Math.floor(G)];
+      const B1 = hexCodes[Math.floor(B)];
+      const R2 = hexCodes[this.getSecondVal(R)];
+      const G2 = hexCodes[this.getSecondVal(G)];
+      const B2 = hexCodes[this.getSecondVal(B)];
+      this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex'}); 
     }
+    getSecondVal = (val) => {
+      const temp = `${val}`.split('.')[1];
+      const final = Math.floor(Number(`.${temp}`) * 16);
+      return final;
+    }
+
     convertToRgb = () => {
 
     }
