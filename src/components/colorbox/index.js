@@ -9,10 +9,11 @@ class Colorbox extends Component {
       color: '#fff',
       contrast: '#000',
       colorList: [],
-      mode: 'hex'
+      mode: 'hex',
+      error: ''
     }
     handleModeChange = (mode) => () => {
-      this.setState({ mode, color: '', contrast: '' });
+      this.setState({ mode, color: '', contrast: '', error: '' });
     }
     handleColorChange = (e) => {
       let { contrast } = this.state;
@@ -33,14 +34,14 @@ class Colorbox extends Component {
           const temp = colorNames[value];
           if (temp) {
             contrast = getContrastColor(temp);
-            this.setState({contrast});
+            this.setState({contrast, error: ''});
           }
         }
       }
       if (value === '') {
         contrast = '';
       }
-      this.setState({ color: value, contrast, mode });
+      this.setState({ color: value, contrast, mode, error: '' });
     }
     saveColor = () => {
       let list = this.state.colorList;
@@ -48,12 +49,12 @@ class Colorbox extends Component {
       if (color.length > 3) {
         list.push(color);
       }
-      this.setState({colorList: list});
+      this.setState({colorList: list, error: ''});
     }
     removeItem = (item) => () => {
       let list = this.state.colorList;
       list.splice(list.indexOf(item), 1);
-      this.setState({colorList: list});
+      this.setState({colorList: list, error: ''});
     }
     validateColorName = (name, mode) => {
       let valid = name;
@@ -76,7 +77,7 @@ class Colorbox extends Component {
     }
     swapColors = () => {
       const { contrast, color } = this.state;
-      this.setState({ contrast: color, color: contrast });
+      this.setState({ contrast: color, color: contrast, error: '' });
     }
     convertToHex = () => {
       const col = this.state.color;
@@ -94,10 +95,10 @@ class Colorbox extends Component {
         const R2 = hexCodes[getSecondVal(R)];
         const G2 = hexCodes[getSecondVal(G)];
         const B2 = hexCodes[getSecondVal(B)];
-        this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex'});
+        this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex', error: ''});
       }
       if (this.state.mode === 'colorName') {
-        this.setState({color: colorNames[col], mode: 'hex'});
+        this.setState({color: colorNames[col], mode: 'hex', error: ''});
       }
     }
 
@@ -107,10 +108,24 @@ class Colorbox extends Component {
     }
 
     convertToColorName = () => {
+      const col = this.state.color;
+      if (this.state.mode === 'hex') {
+        let newColorName = '';
+        const temp = Object.keys(colorNames).find(i => colorNames[i] === col);
+        if (temp) {
+          newColorName = temp;
+        } else {
+          this.setState({error: 'No CSS color name for this code.'});
+        }
+        this.setState({color: newColorName, mode: 'colorName'});
+      }
+      if (this.state.mode === 'rgb') {
+        this.convertToHex();
 
+      }
     }
     render() {
-      const { colorList, color, contrast, mode } = this.state;
+      const { colorList, color, contrast, mode, error } = this.state;
       return (
         <div className="main">
           <h1 className='header' style={{color: contrast}}>Colorbox</h1>
@@ -128,14 +143,17 @@ class Colorbox extends Component {
                   Color Name
             </button>
           </div>
-          <Input color={color}
+          <Input 
+            color={color}
             handleColorChange={this.handleColorChange}
             mode={mode}
           />
+          <div><h3 style={{color: 'darkRed'}}>{error}</h3></div>
           <Display color={color} />
           <div className='btnBox'>
             {color ?
-              <button className='swapBtn' 
+              <button 
+                className='swapBtn' 
                 onClick={this.saveColor}>
                   Save
               </button> : null}
@@ -145,6 +163,8 @@ class Colorbox extends Component {
               <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
             {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
               <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
+            {(mode === 'hex' && color) || (mode === 'rgb' && color) ? 
+              <button className='swapBtn' onClick={this.convertToColorName}>Convert to Color Name</button> : null}
           </div>
           {contrast ?
             <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
@@ -155,7 +175,8 @@ class Colorbox extends Component {
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {
               return(
-                <div className='colorItem' 
+                <div 
+                  className='colorItem' 
                   key={i}
                   draggable 
                   onDrag={this.removeItem(i)}
