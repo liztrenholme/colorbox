@@ -96,11 +96,8 @@ class Colorbox extends Component {
       this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex'}); 
     }
     getSecondVal = (val) => {
-      console.log(val);
       const temp = `${val}`.split('.')[1];
-      console.log(temp);
       const final = Math.floor(Number(`.${temp || 0}`) * 16);
-      console.log(final);
       return final;
     }
 
