@@ -104,7 +104,8 @@ export const hexCodes = {
   11: 'B',
   12: 'C',
   13: 'D',
-  14: 'E'
+  14: 'E',
+  15: 'F'
 };
 
 export const colorNames = {'aliceblue':'#f0f8ff','antiquewhite':'#faebd7','aqua':'#00ffff','aquamarine':'#7fffd4','azure':'#f0ffff',
