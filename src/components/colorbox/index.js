@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
-import { getContrastColor, hexCodes, colorNames } from '../modules/index.js';
+import { getContrastColor, hexCodes, colorNames, getSecondVal } from '../modules/index.js';
 
 class Colorbox extends Component {
     state = {
@@ -80,30 +80,32 @@ class Colorbox extends Component {
     }
     convertToHex = () => {
       const col = this.state.color;
-      let temp = col.split('(')[1];
-      temp = temp.split(')')[0];
-      temp = temp.split(',');
-      temp = temp.map(i => Number(i));
-      const R = temp[0]/16;
-      const G = temp[1]/16;
-      const B = temp[2]/16;
-      const R1 = hexCodes[Math.floor(R)];
-      const G1 = hexCodes[Math.floor(G)];
-      const B1 = hexCodes[Math.floor(B)];
-      const R2 = hexCodes[this.getSecondVal(R)];
-      const G2 = hexCodes[this.getSecondVal(G)];
-      const B2 = hexCodes[this.getSecondVal(B)];
-      this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex'}); 
-    }
-    getSecondVal = (val) => {
-      const temp = `${val}`.split('.')[1];
-      const final = Math.floor(Number(`.${temp || 0}`) * 16);
-      return final;
+      if (this.state.mode === 'rgb') {
+        let temp = col.split('(')[1];
+        temp = temp.split(')')[0];
+        temp = temp.split(',');
+        temp = temp.map(i => Number(i));
+        const R = temp[0]/16;
+        const G = temp[1]/16;
+        const B = temp[2]/16;
+        const R1 = hexCodes[Math.floor(R)];
+        const G1 = hexCodes[Math.floor(G)];
+        const B1 = hexCodes[Math.floor(B)];
+        const R2 = hexCodes[getSecondVal(R)];
+        const G2 = hexCodes[getSecondVal(G)];
+        const B2 = hexCodes[getSecondVal(B)];
+        this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex'});
+      }
+      if (this.state.mode === 'colorName') {
+        this.setState({color: colorNames[col], mode: 'hex'});
+      }
     }
 
     convertToRgb = () => {
+      // const col = this.state.color;
 
     }
+
     convertToColorName = () => {
 
     }
@@ -139,9 +141,9 @@ class Colorbox extends Component {
               </button> : null}
             {contrast ? 
               <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
-            {/* {mode === 'hex' && color ? 
-              <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null} */}
-            {mode === 'rgb' && color ? 
+            {mode === 'hex' && color ? 
+              <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
+            {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
               <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
           </div>
           {contrast ?
@@ -152,12 +154,15 @@ class Colorbox extends Component {
          
           <div className='chosenBox'>
             {colorList && colorList.length ? colorList.map(i => {
-              return(<div className='colorItem' key={i}
-                draggable onDrag={this.removeItem(i)}
-                onDoubleClick={this.removeItem(i)}>
-                <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
-                <span>{i}</span>
-              </div>);
+              return(
+                <div className='colorItem' 
+                  key={i}
+                  draggable 
+                  onDrag={this.removeItem(i)}
+                  onDoubleClick={this.removeItem(i)}>
+                  <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
+                  <span>{i}</span>
+                </div>);
             }) : null}
           </div>
           <div className='instructions'>

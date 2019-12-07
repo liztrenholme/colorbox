@@ -108,6 +108,25 @@ export const hexCodes = {
   15: 'F'
 };
 
+export const rgbVals = {
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  A: '10',
+  B: '11',
+  C: '12',
+  D: '13',
+  E: '14',
+  F: '15'
+};
+
 export const colorNames = {'aliceblue':'#f0f8ff','antiquewhite':'#faebd7','aqua':'#00ffff','aquamarine':'#7fffd4','azure':'#f0ffff',
   'beige':'#f5f5dc','bisque':'#ffe4c4','black':'#000000','blanchedalmond':'#ffebcd','blue':'#0000ff','blueviolet':'#8a2be2','brown':'#a52a2a','burlywood':'#deb887',
   'cadetblue':'#5f9ea0','chartreuse':'#7fff00','chocolate':'#d2691e','coral':'#ff7f50','cornflowerblue':'#6495ed','cornsilk':'#fff8dc','crimson':'#dc143c','cyan':'#00ffff',
@@ -132,3 +151,9 @@ export const colorNames = {'aliceblue':'#f0f8ff','antiquewhite':'#faebd7','aqua'
   'violet':'#ee82ee',
   'wheat':'#f5deb3','white':'#ffffff','whitesmoke':'#f5f5f5',
   'yellow':'#ffff00','yellowgreen':'#9acd32'};
+
+export const getSecondVal = (val) => {
+  const temp = `${val}`.split('.')[1];
+  const final = Math.floor(Number(`.${temp || 0}`) * 16);
+  return final;
+};
