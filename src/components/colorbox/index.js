@@ -81,6 +81,7 @@ class Colorbox extends Component {
     }
     convertToHex = () => {
       const col = this.state.color;
+      let color = '';
       if (this.state.mode === 'rgb') {
         let temp = col.split('(')[1];
         temp = temp.split(')')[0];
@@ -96,10 +97,13 @@ class Colorbox extends Component {
         const G2 = hexCodes[getSecondVal(G)];
         const B2 = hexCodes[getSecondVal(B)];
         this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex', error: ''});
+        color = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
       }
       if (this.state.mode === 'colorName') {
         this.setState({color: colorNames[col], mode: 'hex', error: ''});
+        color = colorNames[col];
       }
+      return color;
     }
 
     convertToRgb = () => {
@@ -109,19 +113,22 @@ class Colorbox extends Component {
 
     convertToColorName = () => {
       const col = this.state.color;
-      if (this.state.mode === 'hex') {
+      const hexToName = (color) => {
         let newColorName = '';
-        const temp = Object.keys(colorNames).find(i => colorNames[i] === col);
+        const temp = Object.keys(colorNames).find(i => colorNames[i] === color);
         if (temp) {
           newColorName = temp;
         } else {
           this.setState({error: 'No CSS color name for this code.'});
         }
         this.setState({color: newColorName, mode: 'colorName'});
+      };
+      if (this.state.mode === 'hex') {
+        hexToName(col);
       }
       if (this.state.mode === 'rgb') {
-        this.convertToHex();
-
+        const hexCol = this.convertToHex().toLowerCase();
+        hexToName(hexCol);
       }
     }
     render() {
