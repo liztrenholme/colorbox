@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
-import { getContrastColor, hexCodes, colorNames, getSecondVal } from '../modules/index.js';
+import { getContrastColor, hexCodes, colorNames, getSecondVal, rgbVals } from '../modules/index.js';
 
 class Colorbox extends Component {
     state = {
@@ -56,28 +56,35 @@ class Colorbox extends Component {
       list.splice(list.indexOf(item), 1);
       this.setState({colorList: list, error: ''});
     }
-    validateColorName = (name, mode) => {
-      let valid = name;
-      if (mode === 'hex') {
-        valid = `#${name}`;
-        valid.split('').filter(function(i, a, self) {
-          return self.indexOf(i) === '#';
-        })
-          .join('');
-      }
-      if (mode === 'rgb') {
-        return valid
-          .split('')
-          .filter(function(item, a, self) {
-            return self.indexOf(item) === '#';
-          })
-          .join('');
-      }
-      return valid;
-    }
+    // validateColorName = (name, mode) => {
+    //   let valid = name;
+    //   if (mode === 'hex') {
+    //     valid = `#${name}`;
+    //     valid.split('').filter(function(i, a, self) {
+    //       return self.indexOf(i) === '#';
+    //     })
+    //       .join('');
+    //   }
+    //   if (mode === 'rgb') {
+    //     return valid
+    //       .split('')
+    //       .filter(function(item, a, self) {
+    //         return self.indexOf(item) === '#';
+    //       })
+    //       .join('');
+    //   }
+    //   return valid;
+    // }
     swapColors = () => {
       const { contrast, color } = this.state;
-      this.setState({ contrast: color, color: contrast, error: '' });
+      let { mode } = this.state;
+      if (contrast.startsWith('#')) {
+        mode = 'hex';
+      }
+      if (!contrast.startsWith('#') && !contrast.startsWith('rgb(')) {
+        mode = 'colorName';
+      }
+      this.setState({ contrast: color, color: contrast, error: '', mode });
     }
     convertToHex = () => {
       const col = this.state.color;
@@ -107,8 +114,23 @@ class Colorbox extends Component {
     }
 
     convertToRgb = () => {
-      // const col = this.state.color;
-
+      const col = this.state.color;
+      const getValsFromHex = (vals) => {
+        let temp = vals.toUpperCase();
+        temp = temp.split('');
+        const val1 = (rgbVals[temp[1]] * 16) + (rgbVals[temp[2]]);
+        const val2 = (rgbVals[temp[3]] * 16) + (rgbVals[temp[4]]);
+        const val3 = (rgbVals[temp[5]] * 16) + (rgbVals[temp[6]]);
+        return `rgb(${val1}, ${val2}, ${val3})`;
+      };
+      if (this.state.mode === 'hex') {
+        const color = getValsFromHex(col);
+        this.setState({color, mode: 'rgb', error: '' });
+      }
+      if (this.state.mode === 'colorName') {
+        const color = getValsFromHex(colorNames[col]);
+        this.setState({color, mode: 'rgb', error: '' });
+      }
     }
 
     convertToColorName = () => {
@@ -166,7 +188,7 @@ class Colorbox extends Component {
               </button> : null}
             {contrast ? 
               <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
-            {mode === 'hex' && color ? 
+            {(mode === 'hex' && color) || (mode === 'colorName') ? 
               <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
             {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
               <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
