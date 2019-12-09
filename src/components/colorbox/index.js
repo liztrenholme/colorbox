@@ -107,7 +107,8 @@ class Colorbox extends Component {
         color = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
       }
       if (this.state.mode === 'colorName') {
-        this.setState({color: colorNames[col], mode: 'hex', error: ''});
+        const name = col.toLowerCase();
+        this.setState({color: colorNames[name], mode: 'hex', error: ''});
         color = colorNames[col];
       }
       return color;
@@ -128,7 +129,8 @@ class Colorbox extends Component {
         this.setState({color, mode: 'rgb', error: '' });
       }
       if (this.state.mode === 'colorName') {
-        const color = getValsFromHex(colorNames[col]);
+        const name = col.toLowerCase();
+        const color = getValsFromHex(colorNames[name]);
         this.setState({color, mode: 'rgb', error: '' });
       }
     }
