@@ -127,11 +127,11 @@ convertToColorName = () => {
   const col = this.state.color;
   const hexToName = (color) => {
     let newColorName = '';
-    const temp = Object.keys(colorNames).find(i => colorNames[i] === color);
+    const temp = Object.keys(colorNames).find(i => colorNames[i] === color.toLowerCase());
     if (temp) {
       newColorName = temp;
     } else {
-      this.setState({error: 'No CSS color name for this code.'});
+      this.setState({error: 'No CSS color name for this code.', contrast: ''});
     }
     this.setState({color: newColorName, mode: 'colorName'});
   };
@@ -143,6 +143,14 @@ convertToColorName = () => {
     hexToName(hexCol);
   }
 }
+
+getColorOptions = () => Object.keys(colorNames).map(i => {
+  return (
+    <option key={i} value={colorNames[i]}>
+      {i}
+    </option>
+  );
+})
 
 render() {
   const { colorList, color, contrast, mode, error } = this.state;
@@ -183,8 +191,11 @@ render() {
           <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
         {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
           <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
-        {(mode === 'hex' && color) || (mode === 'rgb' && color) ? 
+        {(mode === 'hex' && color) || (mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
           <button className='swapBtn' onClick={this.convertToColorName}>Convert to Color Name</button> : null}
+        <select default='Color Options' className='colorSelect' onChange={this.handleColorChange}>
+          {this.getColorOptions()}
+        </select>
       </div>
       {contrast ?
         <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>

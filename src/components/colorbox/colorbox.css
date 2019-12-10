@@ -61,6 +61,14 @@
     margin: auto .5em;
 }
 
+.colorSelect {
+    font-size: .8em;
+    background-color: #fff;
+    color: #04b3d1;
+    border-radius: 5px;
+    border: #fff;
+}
+
 @media (max-width: 967.98px) {
     .instructions { 
         width: 100%;
