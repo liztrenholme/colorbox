@@ -6,8 +6,8 @@ import { getContrastColor, hexCodes, colorNames, getSecondVal, rgbVals } from '.
 
 class Colorbox extends Component {
 state = {
-  color: '#fff',
-  contrast: '#000',
+  color: '#ffffff',
+  contrast: '#000000',
   colorList: [],
   mode: 'hex',
   error: ''
@@ -187,11 +187,11 @@ render() {
           </button> : null}
         {contrast ? 
           <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
-        {(mode === 'hex' && color) || (mode === 'colorName') ? 
+        {(mode === 'hex' && color) || (mode === 'colorName' && color) ? 
           <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
         {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
           <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
-        {(mode === 'hex' && color) || (mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
+        {(mode === 'hex' && color) || (mode === 'rgb' && color) ? 
           <button className='swapBtn' onClick={this.convertToColorName}>Convert to Color Name</button> : null}
         <select default='Color Options' className='colorSelect' onChange={this.handleColorChange}>
           {this.getColorOptions()}
