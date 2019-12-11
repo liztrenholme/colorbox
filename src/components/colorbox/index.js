@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
-import { getContrastColor, hexCodes, colorNames, getSecondVal, rgbVals } from '../modules/index.js';
+import { 
+  getContrastColor, 
+  hexCodes, 
+  colorNames, 
+  getSecondVal, 
+  rgbVals } from '../modules/index.js';
 
 class Colorbox extends Component {
 state = {
@@ -146,7 +151,7 @@ convertToColorName = () => {
 
 getColorOptions = () => Object.keys(colorNames).map(i => {
   return (
-    <option key={i} value={colorNames[i]}>
+    <option key={colorNames[i]} value={i}>
       {i}
     </option>
   );
