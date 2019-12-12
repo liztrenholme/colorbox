@@ -79,3 +79,17 @@
         width: 100%;
     }
 }
+@media (max-width: 567.98px) {
+    .btnBox {
+        display: grid;
+        grid-template-columns: auto;
+    }
+    .swapBtn, .colorSelect {
+        margin: .5em;
+    }
+    .chosenBox {
+        display: grid;
+        grid-template-columns: auto auto;
+        width: 100%;
+    }
+}
