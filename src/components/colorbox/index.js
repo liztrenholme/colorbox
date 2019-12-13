@@ -53,7 +53,7 @@ handleColorChange = (e) => {
 saveColor = () => {
   let list = this.state.colorList;
   const { color } = this.state;
-  if (color.length > 3) {
+  if (color.length > 2) {
     list.push(color);
   }
   this.setState({colorList: list, error: ''});
