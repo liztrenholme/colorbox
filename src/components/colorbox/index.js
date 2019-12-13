@@ -151,7 +151,7 @@ convertToColorName = () => {
 
 getColorOptions = () => Object.keys(colorNames).map(i => {
   return (
-    <option key={colorNames[i]} value={i}>
+    <option key={`${colorNames[i]}${i}`} value={i}>
       {i}
     </option>
   );
