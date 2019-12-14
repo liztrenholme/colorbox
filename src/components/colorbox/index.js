@@ -235,6 +235,10 @@ render() {
                 Display the color associated with the hex code, rgb value, or CSS color name. 
                 Drag or double-tap to remove an item from the list.  Try: rgb(180, 80, 180), 
                 #4ba4ba or salmon.
+        <br />
+                Swap to view contrasting color, convert color code to hex, rgb value or color 
+                name (if applicable), tap/click saved color to view again, double click/tap or 
+                drag to remove saved color.
       </div>
     </div>
   );
