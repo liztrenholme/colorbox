@@ -1,22 +1,23 @@
 {
   "files": {
-    "main.css": "/colorbox/static/css/main.15666659.chunk.css",
-    "main.js": "/colorbox/static/js/main.adfcf5e3.chunk.js",
-    "main.js.map": "/colorbox/static/js/main.adfcf5e3.chunk.js.map",
+    "main.css": "/colorbox/static/css/main.62c2d653.chunk.css",
+    "main.js": "/colorbox/static/js/main.532a2e99.chunk.js",
+    "main.js.map": "/colorbox/static/js/main.532a2e99.chunk.js.map",
     "runtime-main.js": "/colorbox/static/js/runtime-main.7cce49d9.js",
     "runtime-main.js.map": "/colorbox/static/js/runtime-main.7cce49d9.js.map",
-    "static/js/2.ff470031.chunk.js": "/colorbox/static/js/2.ff470031.chunk.js",
-    "static/js/2.ff470031.chunk.js.map": "/colorbox/static/js/2.ff470031.chunk.js.map",
+    "static/js/2.d0e1b28c.chunk.js": "/colorbox/static/js/2.d0e1b28c.chunk.js",
+    "static/js/2.d0e1b28c.chunk.js.map": "/colorbox/static/js/2.d0e1b28c.chunk.js.map",
     "index.html": "/colorbox/index.html",
-    "precache-manifest.39a1a91ee3cdd987badc43940c4412f5.js": "/colorbox/precache-manifest.39a1a91ee3cdd987badc43940c4412f5.js",
+    "precache-manifest.19cc3e34fab3de922fe38758289e5bea.js": "/colorbox/precache-manifest.19cc3e34fab3de922fe38758289e5bea.js",
     "service-worker.js": "/colorbox/service-worker.js",
-    "static/css/main.15666659.chunk.css.map": "/colorbox/static/css/main.15666659.chunk.css.map",
-    "static/js/2.ff470031.chunk.js.LICENSE": "/colorbox/static/js/2.ff470031.chunk.js.LICENSE"
+    "static/css/main.62c2d653.chunk.css.map": "/colorbox/static/css/main.62c2d653.chunk.css.map",
+    "static/js/2.d0e1b28c.chunk.js.LICENSE": "/colorbox/static/js/2.d0e1b28c.chunk.js.LICENSE",
+    "static/media/infoicon.png": "/colorbox/static/media/infoicon.d6142527.png"
   },
   "entrypoints": [
     "static/js/runtime-main.7cce49d9.js",
-    "static/js/2.ff470031.chunk.js",
-    "static/css/main.15666659.chunk.css",
-    "static/js/main.adfcf5e3.chunk.js"
+    "static/js/2.d0e1b28c.chunk.js",
+    "static/css/main.62c2d653.chunk.css",
+    "static/js/main.532a2e99.chunk.js"
   ]
 }
