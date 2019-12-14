@@ -30,6 +30,9 @@
     overflow: scroll;
     flex-direction: row;
 }
+.mobileInstructions {
+    margin: 0 1em 1em 1em;
+}
 .header {
     font-family: 'Monoton', cursive;
     font-size: 3em;
@@ -68,6 +71,10 @@
     border-radius: 5px;
     border: #fff;
 }
+.infoIcon {
+    width: 100px;
+    height: 100px;
+}
 
 @media (max-width: 967.98px) {
     .instructions { 
@@ -79,7 +86,7 @@
         width: 100%;
     }
 }
-@media (max-width: 567.98px) {
+@media (max-width: 624.98px) {
     .btnBox {
         display: grid;
         grid-template-columns: auto;
@@ -91,5 +98,13 @@
         display: grid;
         grid-template-columns: auto auto;
         width: 100%;
+    }
+    .instructions {
+        display: none;
+    }
+}
+@media (min-width: 624.98px) {
+    .mobileInstructions, .infoIcon {
+        display: none;
     }
 }

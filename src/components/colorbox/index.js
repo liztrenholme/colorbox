@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
+import InfoIconCircle from './assets/infoicon.png';
 import { 
   getContrastColor, 
   hexCodes, 
@@ -15,7 +16,8 @@ state = {
   contrast: '#000000',
   colorList: [],
   mode: 'hex',
-  error: ''
+  error: '',
+  showInstructions: false
 }
 
 handleModeChange = (mode) => () => {
@@ -165,11 +167,34 @@ getColorOptions = () => Object.keys(colorNames).map(i => {
   );
 })
 
+handleShowMobileInstructions = () => {
+  this.state.showInstructions 
+    ? this.setState({showInstructions: false}) 
+    : this.setState({showInstructions: true});
+}
+
 render() {
-  const { colorList, color, contrast, mode, error } = this.state;
+  const { colorList, color, contrast, mode, error, showInstructions } = this.state;
   return (
     <div className="main">
       <h1 className='header' style={{color: contrast}}>Colorbox</h1>
+      <div className='infoIcon'>
+        <img 
+          src={InfoIconCircle} 
+          onClick={this.handleShowMobileInstructions}
+          width='20px'
+          height='20px'
+          alt='info-icon' />
+      </div>
+      {showInstructions ? 
+        <div className='mobileInstructions'>
+          <p>Display the color associated with the hex code, rgb value, or CSS color name typed into 
+            the input, or select a color name from the dropdown. Try: rgb(180, 80, 180), 
+            #4ba4ba or salmon.</p>
+          <p>Swap to view contrasting color, convert color code to hex, rgb value or color 
+            name (if applicable), tap/click saved color to view again, double click/tap or 
+            drag to remove a saved color from the list.</p> 
+        </div> : null}
       <div className='buttonBox'>
         <button onClick={this.handleModeChange('hex')} 
           className={mode === 'hex' ? 'active' : 'inactive'}>
@@ -232,13 +257,13 @@ render() {
         }) : null}
       </div>
       <div className='instructions'>
-                Display the color associated with the hex code, rgb value, or CSS color name. 
-                Drag or double-tap to remove an item from the list.  Try: rgb(180, 80, 180), 
-                #4ba4ba or salmon.
-        <br />
-                Swap to view contrasting color, convert color code to hex, rgb value or color 
-                name (if applicable), tap/click saved color to view again, double click/tap or 
-                drag to remove saved color.
+            Display the color associated with the hex code, rgb value, or CSS color name typed into 
+            the input, or select a color name from the dropdown. Try: rgb(180, 80, 180), 
+            #4ba4ba or salmon.
+        <br /><br />
+            Swap to view contrasting color, convert color code to hex, rgb value or color 
+            name (if applicable), tap/click saved color to view again, double click/tap or 
+            drag to remove saved color.
       </div>
     </div>
   );
