@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-// import React from 'react';
-// import ReactDOM from 'react-dom';
 import Colorbox from './index';
+jest.mock('./index.js');
 
-test('two plus two is four', () => {
-  expect(2 + 2).toBe(4);
+beforeEach(() => {
+  // Clear all instances and calls to constructor and all methods:
+  Colorbox.mockClear();
 });
 
 test('mode is never undefined', () => {
@@ -25,12 +25,3 @@ test('color is not undefined', () => {
 // test('no part of the color string is NaN', () =>{
 //   expect.not.stringContaining(NaN);
 // });
-console.log(Colorbox);
-test('there is a new flavor idea', () => {
-  expect(Colorbox.state).toBeDefined();
-});
-
-test('fake test', () => {
-  const n = null;
-  expect(n).toBeFalsy();
-});
