@@ -23,31 +23,39 @@ handleModeChange = (mode) => () => {
 }
 
 handleColorChange = (e) => {
-  let { contrast } = this.state;
   let value = e.target.value;
+  this.setColorInState(value);
+}
+
+setColorInState = (color) => {
+  let { contrast } = this.state;
   let mode = '';
-  if (value.startsWith('#')) {
+  if (color.startsWith('#')) {
     mode = 'hex';
-    contrast = getContrastColor(e.target.value);
+    contrast = getContrastColor(color);
   }
-  if (value.startsWith('rgb')) {
+  if (color.startsWith('rgb')) {
     mode = 'rgb';
     contrast = '';
   }
-  if (!value.startsWith('#') && !value.startsWith('rgb')) {
+  if (!color.startsWith('#') && !color.startsWith('rgb')) {
     mode = 'colorName';
-    if (value && value.length) {
-      const temp = colorNames[value];
+    if (color && color.length) {
+      const temp = colorNames[color];
       if (temp) {
         contrast = getContrastColor(temp);
         this.setState({contrast, error: ''});
       }
     }
   }
-  if (value === '') {
+  if (color === '') {
     contrast = '';
   }
-  this.setState({ color: value, contrast, mode, error: '' });
+  this.setState({ color: color, contrast, mode, error: '' });
+}
+
+chooseColor = (item) => () => {
+  this.setColorInState(item);
 }
 
 saveColor = () => {
@@ -215,6 +223,7 @@ render() {
               className='colorItem' 
               key={i}
               draggable 
+              onClick={this.chooseColor(i)}
               onDrag={this.removeItem(i)}
               onDoubleClick={this.removeItem(i)}>
               <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
