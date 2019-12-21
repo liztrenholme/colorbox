@@ -105,7 +105,12 @@ convertToHex = () => {
     const G2 = hexCodes[getSecondVal(G)];
     const B2 = hexCodes[getSecondVal(B)];
     const contrast = getContrastColor(`#${R1}${R2}${G1}${G2}${B1}${B2}`);
-    this.setState({color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, mode: 'hex', contrast, error: ''});
+    this.setState({
+      color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, 
+      mode: 'hex', 
+      contrast, 
+      error: ''
+    });
     color = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
   }
   if (this.state.mode === 'colorName') {
