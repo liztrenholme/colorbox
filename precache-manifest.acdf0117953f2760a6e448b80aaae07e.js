@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0a7f1803f536e342d83bb70dcc189dbe",
+    "revision": "87846c7786bc24c12fe145ee08508c7a",
     "url": "/colorbox/index.html"
   },
   {
-    "revision": "f517426529d7c79a3f0d",
+    "revision": "2f35e2c4f758744a968c",
     "url": "/colorbox/static/css/main.62c2d653.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/colorbox/static/js/2.d0e1b28c.chunk.js.LICENSE"
   },
   {
-    "revision": "f517426529d7c79a3f0d",
-    "url": "/colorbox/static/js/main.532a2e99.chunk.js"
+    "revision": "2f35e2c4f758744a968c",
+    "url": "/colorbox/static/js/main.d4a67899.chunk.js"
   },
   {
     "revision": "2cbc488ad8410e3175c3",
