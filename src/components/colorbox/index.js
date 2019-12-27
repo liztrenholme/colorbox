@@ -236,7 +236,10 @@ render() {
           <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
         {(mode === 'hex' && color) || (mode === 'rgb' && color) ? 
           <button className='swapBtn' onClick={this.convertToColorName}>Convert to Color Name</button> : null}
-        <select default='Color Options' className='colorSelect' onChange={this.handleColorChange}>
+        <select
+          className='colorSelect' 
+          onChange={this.handleColorChange}>
+          <option value=''>Choose color...</option>
           {this.getColorOptions()}
         </select>
       </div>
