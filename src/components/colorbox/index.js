@@ -38,7 +38,7 @@ setColorInState = (color) => {
   }
   if (color.startsWith('rgb')) {
     mode = 'rgb';
-    contrast = '';
+    contrast = getContrastColor(color);
   }
   if (!color.startsWith('#') && !color.startsWith('rgb')) {
     mode = 'colorName';
