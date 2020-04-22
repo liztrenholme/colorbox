@@ -201,15 +201,15 @@ render() {
             drag to remove a saved color from the list.</p> 
         </div> : null}
       <div className='buttonBox'>
-        <button onClick={this.handleModeChange('hex')} 
+        <button onClick={this.convertToHex} 
           className={mode === 'hex' ? 'active' : 'inactive'}>
                   Hex
         </button>
-        <button onClick={this.handleModeChange('rgb')} 
+        <button onClick={this.convertToRgb} 
           className={mode === 'rgb' ? 'active' : 'inactive'}>
                   RGB
         </button>
-        <button onClick={this.handleModeChange('colorName')} 
+        <button onClick={this.convertToColorName} 
           className={mode === 'colorName' ? 'active' : 'inactive'}>
                   Color Name
         </button>
@@ -229,13 +229,7 @@ render() {
                   Save
           </button> : null}
         {contrast ? 
-          <button className='swapBtn' onClick={this.swapColors}>Swap</button> : null}
-        {(mode === 'hex' && color) || (mode === 'colorName' && color) ? 
-          <button className='swapBtn' onClick={this.convertToRgb}>Convert to RGB</button> : null}
-        {(mode === 'rgb' && color) || (mode === 'colorName' && color) ? 
-          <button className='swapBtn' onClick={this.convertToHex}>Convert to Hex</button> : null}
-        {(mode === 'hex' && color) || (mode === 'rgb' && color) ? 
-          <button className='swapBtn' onClick={this.convertToColorName}>Convert to Color Name</button> : null}
+          <button className='swapBtn' onClick={this.swapColors}>Show Opposite</button> : null}
         <select
           className='colorSelect' 
           onChange={this.handleColorChange}>
