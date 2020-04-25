@@ -32,15 +32,15 @@ handleColorChange = (e) => {
 setColorInState = (color) => {
   let { contrast } = this.state;
   let mode = '';
-  if (color.startsWith('#')) {
+  if (color && color.startsWith('#')) {
     mode = 'hex';
     contrast = getContrastColor(color);
   }
-  if (color.startsWith('rgb')) {
+  if (color && color.startsWith('rgb')) {
     mode = 'rgb';
     contrast = getContrastColor(color);
   }
-  if (!color.startsWith('#') && !color.startsWith('rgb')) {
+  if (color && !color.startsWith('#') && !color.startsWith('rgb')) {
     mode = 'colorName';
     if (color && color.length) {
       const temp = colorNames[color];
@@ -49,6 +49,9 @@ setColorInState = (color) => {
         this.setState({contrast, error: ''});
       }
     }
+  }
+  if (!color) {
+    contrast = '';
   }
   if (color === '') {
     contrast = '';
@@ -90,7 +93,7 @@ swapColors = () => {
 convertToHex = () => {
   const col = this.state.color;
   let color = '';
-  if (this.state.mode === 'rgb') {
+  if (col && this.state.mode === 'rgb') {
     let temp = col.split('(')[1];
     temp = temp.split(')')[0];
     temp = temp.split(',');
@@ -113,7 +116,7 @@ convertToHex = () => {
     });
     color = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
   }
-  if (this.state.mode === 'colorName') {
+  if (col && this.state.mode === 'colorName') {
     const name = col.toLowerCase();
     const contrast = getContrastColor(colorNames[name]);
     this.setState({color: colorNames[name], mode: 'hex', contrast, error: ''});
@@ -124,7 +127,7 @@ convertToHex = () => {
 
 convertToRgb = () => {
   const col = this.state.color;
-  const getValsFromHex = (vals) => {
+  const getValsFromHex = (vals = '') => {
     let temp = vals.toUpperCase();
     temp = temp.split('');
     const val1 = (rgbVals[temp[1]] * 16) + (rgbVals[temp[2]]);
@@ -138,14 +141,17 @@ convertToRgb = () => {
   }
   if (this.state.mode === 'colorName') {
     const name = col.toLowerCase();
-    const color = getValsFromHex(colorNames[name]);
+    let color = getValsFromHex(colorNames[name]);
+    if (color.includes('NaN')) {
+      color = '';
+    }
     this.setState({color, mode: 'rgb', error: '' });
   }
 }
 
 convertToColorName = () => {
   const col = this.state.color;
-  const hexToName = (color) => {
+  const hexToName = (color = '') => {
     let newColorName = '';
     const temp = Object.keys(colorNames).find(i => colorNames[i] === color.toLowerCase());
     if (temp) {

@@ -1,12 +1,12 @@
 export const getContrastColor = (color) => {
   let contrast = '';
-  if (color.startsWith('#')) {
+  if (color && color.startsWith('#')) {
     let temp = color.split('');
     temp.shift();
     contrast = temp.map(i => i = swap(i));
     contrast = `#${contrast.join('')}`;
   }
-  else if (color.startsWith('RGB') || color.startsWith('rgb')) {
+  else if ((color && color.startsWith('RGB')) || (color && color.startsWith('rgb'))) {
     // console.log('rgb!');
   }
   else {
