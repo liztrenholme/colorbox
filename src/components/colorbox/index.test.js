@@ -22,6 +22,6 @@ test('color is not undefined', () => {
   expect(color).not.toBeUndefined();
 });
 
-// test('no part of the color string is NaN', () =>{
-//   expect.not.stringContaining(NaN);
-// });
+test('no part of the color string is NaN', () =>{
+  expect.not.stringContaining('NaN');
+});
