@@ -9,6 +9,7 @@ import {
   colorNames, 
   getSecondVal, 
   rgbVals } from '../modules/index.js';
+import json from '../../../package.json';
 
 class Colorbox extends Component {
 state = {
@@ -273,6 +274,7 @@ render() {
             name (if applicable), tap/click saved color to view again, double click/tap or 
             drag to remove saved color.
       </div>
+      <h3>Version: {json.version}</h3>
     </div>
   );
 }
