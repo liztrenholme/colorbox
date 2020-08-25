@@ -260,8 +260,13 @@ render() {
               onClick={this.chooseColor(i)}
               onDrag={this.removeItem(i)}
               onDoubleClick={this.removeItem(i)}>
-              <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
-              <span>{i}</span>
+              <div style={{
+                width: '2em', 
+                height: '2em', 
+                backgroundColor: i,
+                borderRadius: '8px'
+              }}  />
+              <span className='colorName'>{i}</span>
             </div>);
         }) : null}
       </div>
