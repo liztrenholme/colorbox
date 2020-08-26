@@ -128,6 +128,7 @@ convertToHex = () => {
 
 convertToRgb = () => {
   const col = this.state.color;
+  let error = '';
   const getValsFromHex = (vals = '') => {
     let temp = vals.toUpperCase();
     temp = temp.split('');
@@ -137,16 +138,22 @@ convertToRgb = () => {
     return `rgb(${val1}, ${val2}, ${val3})`;
   };
   if (this.state.mode === 'hex') {
-    const color = getValsFromHex(col);
-    this.setState({color, mode: 'rgb', error: '' });
+    if (col.length === 7) {
+      const color = getValsFromHex(col);
+      this.setState({color, mode: 'rgb', error });
+    } else {
+      error = 'Hex must have 6 characters';
+      this.setState({error});
+    }
   }
   if (this.state.mode === 'colorName') {
     const name = col.toLowerCase();
     let color = getValsFromHex(colorNames[name]);
     if (color.includes('NaN')) {
-      color = '';
+      color = col;
+      error = 'Not a valid color';
     }
-    this.setState({color, mode: 'rgb', error: '' });
+    this.setState({color, mode: 'rgb', error });
   }
 }
 
