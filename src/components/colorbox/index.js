@@ -252,9 +252,22 @@ render() {
         </select>
       </div>
       {contrast ?
-        <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
-          <div style={{backgroundColor: contrast, width: '20px', height: '20px', marginRight: '0.5em'}} />
-          <span style={{fontSize: '1.2em', fontWeight: 'bold'}}>Opposite: {contrast}</span>
+        <div style={{
+          display: 'flex', 
+          flexDirection: 'row', 
+          height: '1em'
+        }}>
+          <div style={{
+            backgroundColor: contrast, 
+            width: '20px', 
+            height: '20px',
+            marginRight: '0.5em',
+            borderRadius: '5px'
+          }} />
+          <span style={{
+            fontSize: '1.2em', 
+            fontWeight: 'bold'
+          }}>Opposite: {contrast}</span>
         </div> : null}
          
       <div className='chosenBox'>
