@@ -128,6 +128,7 @@ convertToHex = () => {
 
 convertToRgb = () => {
   const col = this.state.color;
+  let error = '';
   const getValsFromHex = (vals = '') => {
     let temp = vals.toUpperCase();
     temp = temp.split('');
@@ -137,16 +138,22 @@ convertToRgb = () => {
     return `rgb(${val1}, ${val2}, ${val3})`;
   };
   if (this.state.mode === 'hex') {
-    const color = getValsFromHex(col);
-    this.setState({color, mode: 'rgb', error: '' });
+    if (col.length === 7) {
+      const color = getValsFromHex(col);
+      this.setState({color, mode: 'rgb', error });
+    } else {
+      error = 'Hex must have 6 characters';
+      this.setState({error});
+    }
   }
   if (this.state.mode === 'colorName') {
     const name = col.toLowerCase();
     let color = getValsFromHex(colorNames[name]);
     if (color.includes('NaN')) {
-      color = '';
+      color = col;
+      error = 'Not a valid color';
     }
-    this.setState({color, mode: 'rgb', error: '' });
+    this.setState({color, mode: 'rgb', error });
   }
 }
 
@@ -245,9 +252,22 @@ render() {
         </select>
       </div>
       {contrast ?
-        <div style={{display: 'flex', flexDirection: 'row', height: '1em'}}>
-          <div style={{backgroundColor: contrast, width: '20px', height: '20px', marginRight: '0.5em'}} />
-          <span style={{fontSize: '1.2em', fontWeight: 'bold'}}>Opposite: {contrast}</span>
+        <div style={{
+          display: 'flex', 
+          flexDirection: 'row', 
+          height: '1em'
+        }}>
+          <div style={{
+            backgroundColor: contrast, 
+            width: '20px', 
+            height: '20px',
+            marginRight: '0.5em',
+            borderRadius: '5px'
+          }} />
+          <span style={{
+            fontSize: '1.2em', 
+            fontWeight: 'bold'
+          }}>Opposite: {contrast}</span>
         </div> : null}
          
       <div className='chosenBox'>
@@ -260,8 +280,13 @@ render() {
               onClick={this.chooseColor(i)}
               onDrag={this.removeItem(i)}
               onDoubleClick={this.removeItem(i)}>
-              <div style={{width: '1em', height: '1em', backgroundColor: i}}  />
-              <span>{i}</span>
+              <div style={{
+                width: '2em', 
+                height: '2em', 
+                backgroundColor: i,
+                borderRadius: '8px'
+              }}  />
+              <span className='colorName'>{i}</span>
             </div>);
         }) : null}
       </div>
