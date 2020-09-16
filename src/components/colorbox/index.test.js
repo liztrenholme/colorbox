@@ -14,14 +14,14 @@ beforeEach(() => {
 });
 
 describe('<Colorbox />', function () {
-  is('should render', () => {
+  it('should render', () => {
     const wrapper = shallow(<Colorbox />);
     expect(wrapper.find('div')).to.have.length(1);
   });
 });
 
 describe('<Colorbox />', function () {
-  is('should have a header', () => {
+  it('should have a header', () => {
     const wrapper = shallow(<Colorbox />);
     expect(wrapper.find('h1')).to.have.length(1);
   });
