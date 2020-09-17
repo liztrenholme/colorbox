@@ -228,20 +228,24 @@ render() {
                   Color Name
         </button>
       </div>
-      <Input 
-        color={color}
-        handleColorChange={this.handleColorChange}
-        mode={mode}
-      />
-      <div><h3 style={{color: 'darkRed'}}>{error}</h3></div>
-      <Display color={color} />
-      <div className='btnBox'>
+      <div className='inputWithSave'>
+        <Input 
+          color={color}
+          handleColorChange={this.handleColorChange}
+          mode={mode}
+        />
         {color ?
           <button 
-            className='swapBtn' 
+            className='saveBtn' 
             onClick={this.saveColor}>
                   Save
           </button> : null}
+      </div>
+      <div>
+        <h3 style={{color: 'darkRed'}}>{error}</h3>
+      </div>
+      <Display color={color} />
+      <div className='btnBox'>
         {contrast ? 
           <button className='swapBtn' onClick={this.swapColors}>Show Opposite</button> : null}
         <select

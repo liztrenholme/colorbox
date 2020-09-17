@@ -14,6 +14,26 @@
     margin: 1em 0;
 }
 
+.inputWithSave {
+    display: flex;
+    flex-direction: row;
+}
+
+.saveBtn {
+    font-size: .8em;
+    background-color: #fff;
+    color: #04b3d1;
+    border-radius: 5px;
+    border: #fff;
+    margin: 1.5em .5em;
+    padding: .5em;
+}
+
+.saveBtn:hover {
+    background-color: #04b3d1;
+    color: #fff;
+}
+
 .btnBox {
     display: flex;
     flex-direction: row;
@@ -78,6 +98,10 @@
     border: #fff;
     margin: .5em;
 }
+.inactive:hover {
+    background-color: #04b3d1;
+    color: #fff;
+}
 
 .swapBtn {
     font-size: .8em;
@@ -86,6 +110,12 @@
     border-radius: 5px;
     border: #fff;
     margin: auto .5em;
+    padding: 1em;
+}
+
+.swapBtn:hover {
+    background-color: #04b3d1;
+    color: #fff;
 }
 
 .colorSelect {
@@ -94,6 +124,7 @@
     color: #04b3d1;
     border-radius: 5px;
     border: #fff;
+    padding: 1em;
 }
 
 .infoIcon {
