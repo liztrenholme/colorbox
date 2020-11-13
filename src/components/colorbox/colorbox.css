@@ -9,8 +9,7 @@
     display: grid;
     grid-template-columns: auto auto auto auto auto;
     width: 70%;
-    height: 15em;
-    overflow: scroll;
+    height: fit-content;
     margin: 1em 0;
 }
 
@@ -66,7 +65,6 @@
     justify-content: center;
     width: 70%;
     height: 15em;
-    overflow: scroll;
     flex-direction: row;
 }
 
