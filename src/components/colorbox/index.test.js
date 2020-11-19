@@ -22,7 +22,6 @@ describe('<Colorbox />', function () {
     const wrapper = mount(<Colorbox />);
     const instance = wrapper.instance();
     const spy = chai.spy.on(instance);
-    console.log(spy)
     expect(wrapper.find('button.swapBtn')).to.have.length(1);
   });
 });
