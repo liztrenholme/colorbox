@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import Display from './index';
 import props from './index';
 jest.mock('./index.js');
