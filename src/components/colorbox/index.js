@@ -193,6 +193,10 @@ handleShowMobileInstructions = () => {
     : this.setState({showInstructions: true});
 }
 
+populateColor = (color) => {
+  this.setColorInState(color);
+}
+
 render() {
   const { colorList, color, contrast, mode, error, showInstructions } = this.state;
   return (
@@ -208,12 +212,18 @@ render() {
       </div>
       {showInstructions ? 
         <div className='mobileInstructions'>
-          <p>Display the color associated with the hex code, rgb value, or CSS color name typed into 
-            the input, or select a color name from the dropdown. Try: rgb(180, 80, 180), 
-            #4ba4ba or salmon.</p>
-          <p>Swap to view contrasting color, convert color code to hex, rgb value or color 
+          <div>
+            <p>
+            Display the color associated with the hex code, rgb value, or CSS color name typed into 
+            the input, or select a color name from the dropdown. Try: <span onClick={() => this.populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
+              <span onClick={() => this.populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => this.populateColor('salmon')}><strong>salmon</strong></span>.
+            </p>
+            <p>
+            Swap to view contrasting color, convert color code to hex, rgb value or color 
             name (if applicable), tap/click saved color to view again, double click/tap or 
-            drag to remove a saved color from the list.</p> 
+            drag to remove saved color.
+            </p>
+          </div>
         </div> : null}
       <div className='buttonBox'>
         <button onClick={this.convertToHex} 
@@ -297,13 +307,18 @@ render() {
         }) : null}
       </div>
       <div className='instructions'>
+        <div>
+          <p>
             Display the color associated with the hex code, rgb value, or CSS color name typed into 
-            the input, or select a color name from the dropdown. Try: rgb(180, 80, 180), 
-            #4ba4ba or salmon.
-        <br /><br />
+            the input, or select a color name from the dropdown. Try: <span onClick={() => this.populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
+            <span onClick={() => this.populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => this.populateColor('salmon')}><strong>salmon</strong></span>.
+          </p>
+          <p>
             Swap to view contrasting color, convert color code to hex, rgb value or color 
             name (if applicable), tap/click saved color to view again, double click/tap or 
             drag to remove saved color.
+          </p>
+        </div>
       </div>
       <h3>Version: {json.version}</h3>
     </div>

@@ -63,9 +63,13 @@
 .instructions {
     display: flex;
     justify-content: center;
-    width: 70%;
+    max-width: 20em;
     height: 15em;
     flex-direction: row;
+}
+
+span {
+    cursor: pointer;
 }
 
 .mobileInstructions {
