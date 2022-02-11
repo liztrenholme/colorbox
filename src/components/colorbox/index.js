@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
@@ -164,10 +165,10 @@ convertToColorName = () => {
     const temp = Object.keys(colorNames).find(i => colorNames[i] === color.toLowerCase());
     if (temp) {
       newColorName = temp;
+      this.setState({color: newColorName, mode: 'colorName'});
     } else {
-      this.setState({error: 'No CSS color name for this code.', contrast: ''});
+      this.setState({error: 'No CSS color name for this code.'});
     }
-    this.setState({color: newColorName, mode: 'colorName'});
   };
   if (this.state.mode === 'hex') {
     hexToName(col);
@@ -238,7 +239,7 @@ render() {
           <button 
             className='saveBtn' 
             onClick={this.saveColor}>
-                  Save
+                  Add to List
           </button> : null}
       </div>
       <div>
@@ -249,6 +250,7 @@ render() {
         {contrast ? 
           <button className='swapBtn' onClick={this.swapColors}>Show Opposite</button> : null}
         <select
+          value={this.state.color}
           className='colorSelect' 
           onChange={this.handleColorChange}>
           <option value=''>Choose color...</option>
