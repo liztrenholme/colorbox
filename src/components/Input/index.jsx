@@ -6,7 +6,7 @@ class Input extends Component {
   render() {
     const { color, handleColorChange } = this.props;
     return (
-      <div className="input">
+      <div className="input" data-testid="input-test">
         <input value={color} 
           onChange={handleColorChange} />
       </div>
