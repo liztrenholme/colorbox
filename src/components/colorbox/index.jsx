@@ -13,28 +13,12 @@ import {
 import json from '../../../package.json';
 
 const Colorbox = () => {
-// state = {
-//   color: '#ffffff',
-//   contrast: '#000000',
-//   colorList: [],
-//   mode: 'hex',
-//   error: '',
-//   showInstructions: false
-// }
   const [color, setColor] = useState('#ffffff');
   const [contrast, setContrast] = useState('#000000');
   const [colorList, setColorList] = useState([]);
   const [mode, setMode] = useState('hex');
   const [error, setError] = useState('');
   const [showInstructions, setShowInstructions] = useState(false);
-
-  const handleModeChange = (mode) => () => {
-  // this.setState({ mode, color: '', contrast: '', error: '' });
-    setMode(mode);
-    setColor('');
-    setContrast('');
-    setError('');
-  };
 
   const handleColorChange = (e) => {
     let value = e.target.value;
@@ -70,7 +54,6 @@ const Colorbox = () => {
     if (newColor === '') {
       newContrast = '';
     }
-    // this.setState({ color: color, contrast, mode, error: '' });
     setContrast(newContrast);
     setColor(newColor);
     setMode(newMode);
@@ -82,34 +65,26 @@ const Colorbox = () => {
   };
 
   const saveColor = () => {
-    let list = colorList;
-    // const { color } = this.state;
-    if (color.length > 2) {
-      list.push(color);
-    }
-    // this.setState({colorList: list, error: ''});
-    setColorList(list);
+    setColorList([...colorList, color]);
     setError('');
   };
 
   const removeItem = (item) => () => {
-    let list = colorList;
+    let list = [...colorList];
     list.splice(list.indexOf(item), 1);
-    // this.setState({colorList: list, error: ''});
     setColorList(list);
     setError('');
   };
 
   const swapColors = () => {
-  // const { contrast, color } = this.state;
     let newMode = mode;
     if (contrast.startsWith('#')) {
       newMode = 'hex';
     }
     if (!contrast.startsWith('#') && !contrast.startsWith('rgb(')) {
+      console.log('its TRUE');
       newMode = 'colorName';
     }
-    // this.setState({ contrast: color, color: contrast, error: '', mode });
     setContrast(color);
     setColor(contrast);
     setMode(newMode);
@@ -173,24 +148,21 @@ const Colorbox = () => {
     if (mode === 'hex') {
       if (col.length === 7) {
         const newColor = getValsFromHex(col);
-        // this.setState({color, mode: 'rgb', error });
         setColor(newColor);
         setMode('rgb');
         setError('');
       } else {
         newError = 'Hex must have 6 characters';
-        // this.setState({error});
         setError(newError);
       }
     }
     if (mode === 'colorName') {
       const name = col.toLowerCase();
       let newColor = getValsFromHex(colorNames[name]);
-      if (color.includes('NaN')) {
+      if (col.includes('NaN')) {
         newColor = col;
         newError = 'Not a valid color';
       }
-      // this.setState({color, mode: 'rgb', error });
       setColor(newColor);
       setError(newError);
       setMode('rgb');
@@ -204,11 +176,9 @@ const Colorbox = () => {
       const temp = Object.keys(colorNames).find(i => colorNames[i] === c.toLowerCase());
       if (temp) {
         newColorName = temp;
-        // this.setState({color: newColorName, mode: 'colorName'});
         setColor(newColorName);
         setMode('colorName');
       } else {
-      // this.setState({error: 'No CSS color name for this code.'});
         setError('No CSS color name for this code.');
       }
     };
@@ -223,7 +193,7 @@ const Colorbox = () => {
 
   const getColorOptions = () => Object.keys(colorNames).map(i => {
     return (
-      <option key={`${colorNames[i]}${i}`} value={i}>
+      <option data-testid="select-option" key={`${colorNames[i]}${i}`} value={i}>
         {i}
       </option>
     );
@@ -242,7 +212,8 @@ const Colorbox = () => {
     <div className="main">
       <h1 className='header' style={{color: contrast}}>Colorbox</h1>
       <div className='infoIcon'>
-        <img 
+        <img
+          data-testid='info-circle-test'
           src={InfoIconCircle} 
           onClick={handleShowMobileInstructions}
           width='20px'
@@ -255,7 +226,7 @@ const Colorbox = () => {
             <p>
             Display the color associated with the hex code, rgb value, or CSS color name typed into 
             the input, or select a color name from the dropdown. Try: <span onClick={() => populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
-              <span onClick={() => populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => populateColor('salmon')}><strong>salmon</strong></span>.
+              <span onClick={() => populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span data-testid='salmon-test' onClick={() => populateColor('salmon')}><strong>salmon</strong></span>.
             </p>
             <p>
             Swap to view contrasting color, convert color code to hex, rgb value or color 
@@ -265,7 +236,7 @@ const Colorbox = () => {
           </div>
         </div> : null}
       <div className='buttonBox'>
-        <button onClick={convertToHex} 
+        <button data-testid='hex-btn-test' onClick={convertToHex} 
           className={mode === 'hex' ? 'active' : 'inactive'}>
                   Hex
         </button>
@@ -299,6 +270,7 @@ const Colorbox = () => {
         {contrast ? 
           <button className='swapBtn' onClick={swapColors}>Show Opposite</button> : null}
         <select
+          data-testid="select"
           value={color}
           className='colorSelect' 
           onChange={handleColorChange}>
@@ -329,6 +301,7 @@ const Colorbox = () => {
         {colorList && colorList.length ? colorList.map(i => {
           return(
             <div 
+              data-testid='saved-color-item-test'
               className='colorItem' 
               key={i}
               draggable 
@@ -341,7 +314,7 @@ const Colorbox = () => {
                 backgroundColor: i,
                 borderRadius: '8px'
               }}  />
-              <span className='colorName'>{i}</span>
+              <span data-testid='saved-colorname-test' className='colorName'>{i}</span>
             </div>);
         }) : null}
       </div>
