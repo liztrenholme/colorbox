@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './colorbox.css';
 import Display from '../display/index';
 import Input from '../Input/index';
@@ -12,200 +12,210 @@ import {
   rgbVals } from '../modules/index.js';
 import json from '../../../package.json';
 
-class Colorbox extends Component {
-state = {
-  color: '#ffffff',
-  contrast: '#000000',
-  colorList: [],
-  mode: 'hex',
-  error: '',
-  showInstructions: false
-}
+const Colorbox = () => {
+  const [color, setColor] = useState('#ffffff');
+  const [contrast, setContrast] = useState('#000000');
+  const [colorList, setColorList] = useState([]);
+  const [mode, setMode] = useState('hex');
+  const [error, setError] = useState('');
+  const [showInstructions, setShowInstructions] = useState(false);
 
-handleModeChange = (mode) => () => {
-  this.setState({ mode, color: '', contrast: '', error: '' });
-}
+  const handleColorChange = (e) => {
+    let value = e.target.value;
+    setColorInState(value);
+  };
 
-handleColorChange = (e) => {
-  let value = e.target.value;
-  this.setColorInState(value);
-}
-
-setColorInState = (color) => {
-  let { contrast } = this.state;
-  let mode = '';
-  if (color && color.startsWith('#')) {
-    mode = 'hex';
-    contrast = getContrastColor(color);
-  }
-  if (color && color.startsWith('rgb')) {
-    mode = 'rgb';
-    contrast = getContrastColor(color);
-  }
-  if (color && !color.startsWith('#') && !color.startsWith('rgb')) {
-    mode = 'colorName';
-    if (color && color.length) {
-      const temp = colorNames[color];
-      if (temp) {
-        contrast = getContrastColor(temp);
-        this.setState({contrast, error: ''});
+  const setColorInState = (newColor) => {
+    let newContrast = contrast;
+    let newMode = '';
+    if (newColor && newColor.startsWith('#')) {
+      newMode = 'hex';
+      newContrast = getContrastColor(newColor);
+    }
+    if (newColor && newColor.startsWith('rgb')) {
+      newMode = 'rgb';
+      newContrast = getContrastColor(newColor);
+    }
+    if (newColor && !newColor.startsWith('#') && !newColor.startsWith('rgb')) {
+      newMode = 'colorName';
+      if (newColor && newColor.length) {
+        const temp = colorNames[newColor];
+        if (temp) {
+          newContrast = getContrastColor(temp);
+          // this.setState({contrast, error: ''});
+          setContrast(newContrast);
+          setError('');
+        }
       }
     }
-  }
-  if (!color) {
-    contrast = '';
-  }
-  if (color === '') {
-    contrast = '';
-  }
-  this.setState({ color: color, contrast, mode, error: '' });
-}
-
-chooseColor = (item) => () => {
-  this.setColorInState(item);
-}
-
-saveColor = () => {
-  let list = this.state.colorList;
-  const { color } = this.state;
-  if (color.length > 2) {
-    list.push(color);
-  }
-  this.setState({colorList: list, error: ''});
-}
-
-removeItem = (item) => () => {
-  let list = this.state.colorList;
-  list.splice(list.indexOf(item), 1);
-  this.setState({colorList: list, error: ''});
-}
-
-swapColors = () => {
-  const { contrast, color } = this.state;
-  let { mode } = this.state;
-  if (contrast.startsWith('#')) {
-    mode = 'hex';
-  }
-  if (!contrast.startsWith('#') && !contrast.startsWith('rgb(')) {
-    mode = 'colorName';
-  }
-  this.setState({ contrast: color, color: contrast, error: '', mode });
-}
-
-convertToHex = () => {
-  const col = this.state.color;
-  let color = '';
-  if (col && this.state.mode === 'rgb') {
-    let temp = col.split('(')[1];
-    temp = temp.split(')')[0];
-    temp = temp.split(',');
-    temp = temp.map(i => Number(i));
-    const R = temp[0]/16;
-    const G = temp[1]/16;
-    const B = temp[2]/16;
-    const R1 = hexCodes[Math.floor(R)];
-    const G1 = hexCodes[Math.floor(G)];
-    const B1 = hexCodes[Math.floor(B)];
-    const R2 = hexCodes[getSecondVal(R)];
-    const G2 = hexCodes[getSecondVal(G)];
-    const B2 = hexCodes[getSecondVal(B)];
-    const contrast = getContrastColor(`#${R1}${R2}${G1}${G2}${B1}${B2}`);
-    this.setState({
-      color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, 
-      mode: 'hex', 
-      contrast, 
-      error: ''
-    });
-    color = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
-  }
-  if (col && this.state.mode === 'colorName') {
-    const name = col.toLowerCase();
-    const contrast = getContrastColor(colorNames[name]);
-    this.setState({color: colorNames[name], mode: 'hex', contrast, error: ''});
-    color = colorNames[name];
-  }
-  return color;
-}
-
-convertToRgb = () => {
-  const col = this.state.color;
-  let error = '';
-  const getValsFromHex = (vals = '') => {
-    let temp = vals.toUpperCase();
-    temp = temp.split('');
-    const val1 = (rgbVals[temp[1]] * 16) + (rgbVals[temp[2]]);
-    const val2 = (rgbVals[temp[3]] * 16) + (rgbVals[temp[4]]);
-    const val3 = (rgbVals[temp[5]] * 16) + (rgbVals[temp[6]]);
-    return `rgb(${val1}, ${val2}, ${val3})`;
+    if (!newColor) {
+      newContrast = '';
+    }
+    if (newColor === '') {
+      newContrast = '';
+    }
+    setContrast(newContrast);
+    setColor(newColor);
+    setMode(newMode);
+    setError('');
   };
-  if (this.state.mode === 'hex') {
-    if (col.length === 7) {
-      const color = getValsFromHex(col);
-      this.setState({color, mode: 'rgb', error });
-    } else {
-      error = 'Hex must have 6 characters';
-      this.setState({error});
-    }
-  }
-  if (this.state.mode === 'colorName') {
-    const name = col.toLowerCase();
-    let color = getValsFromHex(colorNames[name]);
-    if (color.includes('NaN')) {
-      color = col;
-      error = 'Not a valid color';
-    }
-    this.setState({color, mode: 'rgb', error });
-  }
-}
 
-convertToColorName = () => {
-  const col = this.state.color;
-  const hexToName = (color = '') => {
-    let newColorName = '';
-    const temp = Object.keys(colorNames).find(i => colorNames[i] === color.toLowerCase());
-    if (temp) {
-      newColorName = temp;
-      this.setState({color: newColorName, mode: 'colorName'});
-    } else {
-      this.setState({error: 'No CSS color name for this code.'});
+  const chooseColor = (item) => () => {
+    setColorInState(item);
+  };
+
+  const saveColor = () => {
+    setColorList([...colorList, color]);
+    setError('');
+  };
+
+  const removeItem = (item) => () => {
+    let list = [...colorList];
+    list.splice(list.indexOf(item), 1);
+    setColorList(list);
+    setError('');
+  };
+
+  const swapColors = () => {
+    let newMode = mode;
+    if (contrast.startsWith('#')) {
+      newMode = 'hex';
+    }
+    if (!contrast.startsWith('#') && !contrast.startsWith('rgb(')) {
+      console.log('its TRUE');
+      newMode = 'colorName';
+    }
+    setContrast(color);
+    setColor(contrast);
+    setMode(newMode);
+    setError('');
+  };
+
+  const convertToHex = () => {
+    const col = color;
+    let newColor = '';
+    if (col && mode === 'rgb') {
+      let temp = col.split('(')[1];
+      temp = temp.split(')')[0];
+      temp = temp.split(',');
+      temp = temp.map(i => Number(i));
+      const R = temp[0]/16;
+      const G = temp[1]/16;
+      const B = temp[2]/16;
+      const R1 = hexCodes[Math.floor(R)];
+      const G1 = hexCodes[Math.floor(G)];
+      const B1 = hexCodes[Math.floor(B)];
+      const R2 = hexCodes[getSecondVal(R)];
+      const G2 = hexCodes[getSecondVal(G)];
+      const B2 = hexCodes[getSecondVal(B)];
+      const newContrast = getContrastColor(`#${R1}${R2}${G1}${G2}${B1}${B2}`);
+      // this.setState({
+      //   color: `#${R1}${R2}${G1}${G2}${B1}${B2}`, 
+      //   mode: 'hex', 
+      //   contrast, 
+      //   error: ''
+      // });
+      newColor = `#${R1}${R2}${G1}${G2}${B1}${B2}`;
+      setColor(newColor);
+      setMode('hex');
+      setContrast(newContrast);
+      setError('');
+    }
+    if (col && mode === 'colorName') {
+      const name = col.toLowerCase();
+      const newContrast = getContrastColor(colorNames[name]);
+      // this.setState({color: colorNames[name], mode: 'hex', contrast, error: ''});
+      setColor(colorNames[name]);
+      setMode('hex');
+      setContrast(newContrast);
+      setError('');
+      newColor = colorNames[name];
+    }
+    return newColor;
+  };
+
+  const convertToRgb = () => {
+    const col = color;
+    let newError = '';
+    const getValsFromHex = (vals = '') => {
+      let temp = vals.toUpperCase();
+      temp = temp.split('');
+      const val1 = (rgbVals[temp[1]] * 16) + (rgbVals[temp[2]]);
+      const val2 = (rgbVals[temp[3]] * 16) + (rgbVals[temp[4]]);
+      const val3 = (rgbVals[temp[5]] * 16) + (rgbVals[temp[6]]);
+      return `rgb(${val1}, ${val2}, ${val3})`;
+    };
+    if (mode === 'hex') {
+      if (col.length === 7) {
+        const newColor = getValsFromHex(col);
+        setColor(newColor);
+        setMode('rgb');
+        setError('');
+      } else {
+        newError = 'Hex must have 6 characters';
+        setError(newError);
+      }
+    }
+    if (mode === 'colorName') {
+      const name = col.toLowerCase();
+      let newColor = getValsFromHex(colorNames[name]);
+      if (col.includes('NaN')) {
+        newColor = col;
+        newError = 'Not a valid color';
+      }
+      setColor(newColor);
+      setError(newError);
+      setMode('rgb');
     }
   };
-  if (this.state.mode === 'hex') {
-    hexToName(col);
-  }
-  if (this.state.mode === 'rgb') {
-    const hexCol = this.convertToHex().toLowerCase();
-    hexToName(hexCol);
-  }
-}
 
-getColorOptions = () => Object.keys(colorNames).map(i => {
-  return (
-    <option key={`${colorNames[i]}${i}`} value={i}>
-      {i}
-    </option>
-  );
-})
+  const convertToColorName = () => {
+    const col = color;
+    const hexToName = (c = '') => {
+      let newColorName = '';
+      const temp = Object.keys(colorNames).find(i => colorNames[i] === c.toLowerCase());
+      if (temp) {
+        newColorName = temp;
+        setColor(newColorName);
+        setMode('colorName');
+      } else {
+        setError('No CSS color name for this code.');
+      }
+    };
+    if (mode === 'hex') {
+      hexToName(col);
+    }
+    if (mode === 'rgb') {
+      const hexCol = convertToHex().toLowerCase();
+      hexToName(hexCol);
+    }
+  };
 
-handleShowMobileInstructions = () => {
-  this.state.showInstructions 
-    ? this.setState({showInstructions: false}) 
-    : this.setState({showInstructions: true});
-}
+  const getColorOptions = () => Object.keys(colorNames).map(i => {
+    return (
+      <option data-testid="select-option" key={`${colorNames[i]}${i}`} value={i}>
+        {i}
+      </option>
+    );
+  });
 
-populateColor = (color) => {
-  this.setColorInState(color);
-}
+  const handleShowMobileInstructions = () => {
+    showInstructions 
+      ? setShowInstructions(false) 
+      : setShowInstructions(true);
+  };
 
-render() {
-  const { colorList, color, contrast, mode, error, showInstructions } = this.state;
+  const populateColor = (color) => {
+    setColorInState(color);
+  };
   return (
     <div className="main">
       <h1 className='header' style={{color: contrast}}>Colorbox</h1>
       <div className='infoIcon'>
-        <img 
+        <img
+          data-testid='info-circle-test'
           src={InfoIconCircle} 
-          onClick={this.handleShowMobileInstructions}
+          onClick={handleShowMobileInstructions}
           width='20px'
           height='20px'
           alt='info-icon' />
@@ -215,8 +225,8 @@ render() {
           <div>
             <p>
             Display the color associated with the hex code, rgb value, or CSS color name typed into 
-            the input, or select a color name from the dropdown. Try: <span onClick={() => this.populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
-              <span onClick={() => this.populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => this.populateColor('salmon')}><strong>salmon</strong></span>.
+            the input, or select a color name from the dropdown. Try: <span onClick={() => populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
+              <span onClick={() => populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span data-testid='salmon-test' onClick={() => populateColor('salmon')}><strong>salmon</strong></span>.
             </p>
             <p>
             Swap to view contrasting color, convert color code to hex, rgb value or color 
@@ -226,15 +236,15 @@ render() {
           </div>
         </div> : null}
       <div className='buttonBox'>
-        <button onClick={this.convertToHex} 
+        <button data-testid='hex-btn-test' onClick={convertToHex} 
           className={mode === 'hex' ? 'active' : 'inactive'}>
                   Hex
         </button>
-        <button onClick={this.convertToRgb} 
+        <button onClick={convertToRgb} 
           className={mode === 'rgb' ? 'active' : 'inactive'}>
                   RGB
         </button>
-        <button onClick={this.convertToColorName} 
+        <button onClick={convertToColorName} 
           className={mode === 'colorName' ? 'active' : 'inactive'}>
                   Color Name
         </button>
@@ -242,13 +252,13 @@ render() {
       <div className='inputWithSave'>
         <Input 
           color={color}
-          handleColorChange={this.handleColorChange}
+          handleColorChange={handleColorChange}
           mode={mode}
         />
         {color ?
           <button 
             className='saveBtn' 
-            onClick={this.saveColor}>
+            onClick={saveColor}>
                   Add to List
           </button> : null}
       </div>
@@ -258,13 +268,14 @@ render() {
       <Display color={color} />
       <div className='btnBox'>
         {contrast ? 
-          <button className='swapBtn' onClick={this.swapColors}>Show Opposite</button> : null}
+          <button className='swapBtn' onClick={swapColors}>Show Opposite</button> : null}
         <select
-          value={this.state.color}
+          data-testid="select"
+          value={color}
           className='colorSelect' 
-          onChange={this.handleColorChange}>
+          onChange={handleColorChange}>
           <option value=''>Choose color...</option>
-          {this.getColorOptions()}
+          {getColorOptions()}
         </select>
       </div>
       {contrast ?
@@ -290,19 +301,20 @@ render() {
         {colorList && colorList.length ? colorList.map(i => {
           return(
             <div 
+              data-testid='saved-color-item-test'
               className='colorItem' 
               key={i}
               draggable 
-              onClick={this.chooseColor(i)}
-              onDrag={this.removeItem(i)}
-              onDoubleClick={this.removeItem(i)}>
+              onClick={chooseColor(i)}
+              onDrag={removeItem(i)}
+              onDoubleClick={removeItem(i)}>
               <div style={{
                 width: '2em', 
                 height: '2em', 
                 backgroundColor: i,
                 borderRadius: '8px'
               }}  />
-              <span className='colorName'>{i}</span>
+              <span data-testid='saved-colorname-test' className='colorName'>{i}</span>
             </div>);
         }) : null}
       </div>
@@ -310,8 +322,8 @@ render() {
         <div>
           <p>
             Display the color associated with the hex code, rgb value, or CSS color name typed into 
-            the input, or select a color name from the dropdown. Try: <span onClick={() => this.populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
-            <span onClick={() => this.populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => this.populateColor('salmon')}><strong>salmon</strong></span>.
+            the input, or select a color name from the dropdown. Try: <span onClick={() => populateColor('rgb(180, 80, 180)')}><strong>rgb(180, 80, 180)</strong></span>, 
+            <span onClick={() => populateColor('#4ba4ba')}> <strong>#4ba4ba</strong></span> or <span onClick={() => populateColor('salmon')}><strong>salmon</strong></span>.
           </p>
           <p>
             Swap to view contrasting color, convert color code to hex, rgb value or color 
@@ -323,8 +335,7 @@ render() {
       <h3>Version: {json.version}</h3>
     </div>
   );
-}
-}
+};
 
 
 export default Colorbox;
