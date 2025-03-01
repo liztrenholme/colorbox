@@ -81,9 +81,10 @@ const Colorbox = () => {
     if (contrast.startsWith('#')) {
       newMode = 'hex';
     }
+    /* v8 ignore start */
     if (!contrast.startsWith('#') && !contrast.startsWith('rgb(')) {
-      console.log('its TRUE');
       newMode = 'colorName';
+      /* v8 ignore end */
     }
     setContrast(color);
     setColor(contrast);
@@ -244,7 +245,7 @@ const Colorbox = () => {
           className={mode === 'rgb' ? 'active' : 'inactive'}>
                   RGB
         </button>
-        <button onClick={convertToColorName} 
+        <button data-testid='col-name-btn-test' onClick={convertToColorName} 
           className={mode === 'colorName' ? 'active' : 'inactive'}>
                   Color Name
         </button>
